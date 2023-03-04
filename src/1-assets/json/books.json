@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "JavaScript is fun", "price": 100 },
+  { "id": 2, "name": "TypeScript is better", "price": 150 },
+  { "id": 3, "name": "PHP is gone", "price": 20 }
+]
