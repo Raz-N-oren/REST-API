@@ -34,4 +34,11 @@ router.put("/api/books/:id", async (request: Request, response: Response, next: 
     response.json(updatedBook);
 });
 
+// DELETE http://localhost:3001/api/books/:id
+router.delete("/api/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+    const id = +request.params.id;
+    await booksLogic.deleteBook(id);
+    response.sendStatus(204);
+});
+
 export default router;

@@ -57,9 +57,26 @@ async function updateBook(book: BookModel): Promise<BookModel> {
     return book;
 }
 
+// DELETE one book:
+async function deleteBook(id: number): Promise<void> {
+
+    // Get all books from JSON file:
+    const books = await dal.getAllBooks();
+
+    //Find desired book:
+    const index = books.findIndex(b => b.id === id);
+
+    //Delete desired book from array:
+    books.splice(index,1);
+
+    // Save back all books to JSON file:
+    await dal.saveAllBooks(books);
+}
+
 export default {
     getAllBooks,
     getOneBook,
     addBook,
-    updateBook
+    updateBook,
+    deleteBook
 };
