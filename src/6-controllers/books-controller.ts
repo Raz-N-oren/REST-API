@@ -25,4 +25,13 @@ router.post("/api/books", async (request: Request, response: Response, next: Nex
     response.status(201).json(addedBook);
 });
 
+// PUT http://localhost:3001/api/books/:id
+router.put("/api/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+    const id = +request.params.id;
+    request.body.id = id;
+    const book = new BookModel(request.body);
+    const updatedBook = await booksLogic.updateBook(book);
+    response.json(updatedBook);
+});
+
 export default router;
