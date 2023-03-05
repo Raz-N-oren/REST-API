@@ -10,7 +10,7 @@ async function getAllBooks(): Promise<BookModel[]> {
 }
 
 async function saveAllBooks(books: BookModel[]): Promise<void> {
-    const content = JSON.stringify(books);
+    const content = JSON.stringify(books,null,4); // 4 = Number of spaces of each tab
     await fsPromises.writeFile(filePath, content);
 }
 
