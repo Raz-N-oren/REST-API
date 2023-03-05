@@ -6,27 +6,27 @@ import booksLogic from "../5-logic/books-logic";
 const router = express.Router();
 
 // GET http://localhost:3001/api/books
-router.get("/api/books", async (request: Request, response: Response, next: NextFunction) => {
+router.get("/books", async (request: Request, response: Response, next: NextFunction) => {
     const books = await booksLogic.getAllBooks();
     response.json(books);
 });
 
-// GET http://localhost:3001/api/books/:id
-router.get("/api/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+// GET  http://localhost:3001/api/books/:id
+router.get("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
     const id = +request.params.id;
     const book = await booksLogic.getOneBook(id);
     response.json(book);
 });
 
-// POST http://localhost:3001/api/books
-router.post("/api/books", async (request: Request, response: Response, next: NextFunction) => {
+// POST  http://localhost:3001/api/books
+router.post("/books", async (request: Request, response: Response, next: NextFunction) => {
     const book = new BookModel(request.body);
     const addedBook = await booksLogic.addBook(book);
     response.status(201).json(addedBook);
 });
 
-// PUT http://localhost:3001/api/books/:id
-router.put("/api/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+// PUT  http://localhost:3001/api/books/:id
+router.put("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
     const id = +request.params.id;
     request.body.id = id;
     const book = new BookModel(request.body);
@@ -34,8 +34,8 @@ router.put("/api/books/:id", async (request: Request, response: Response, next: 
     response.json(updatedBook);
 });
 
-// DELETE http://localhost:3001/api/books/:id
-router.delete("/api/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+// DELETE  http://localhost:3001/api/books/:id
+router.delete("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
     const id = +request.params.id;
     await booksLogic.deleteBook(id);
     response.sendStatus(204);

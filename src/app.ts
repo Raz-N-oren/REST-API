@@ -8,9 +8,9 @@ const server = express();
 server.use(express.json());
 
 // Tell the server to listen to any router written in our controller:
-server.use("/",booksController)
+server.use("/api", booksController)
 
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-//02:41:00
+// 00:30:00 MiddleWare && Error handling
