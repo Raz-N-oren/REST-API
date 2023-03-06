@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import deleteMessage from "../3-middleware/delete-message";
 import BookModel from "../4- models/book-model";
 import booksLogic from "../5-logic/books-logic";
 
@@ -35,7 +36,7 @@ router.put("/books/:id", async (request: Request, response: Response, next: Next
 });
 
 // DELETE  http://localhost:3001/api/books/:id
-router.delete("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+router.delete("/books/:id", deleteMessage, async (request: Request, response: Response, next: NextFunction) => {
     const id = +request.params.id;
     await booksLogic.deleteBook(id);
     response.sendStatus(204);
