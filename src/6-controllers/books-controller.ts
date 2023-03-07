@@ -8,38 +8,58 @@ const router = express.Router();
 
 // GET http://localhost:3001/api/books
 router.get("/books", async (request: Request, response: Response, next: NextFunction) => {
-    const books = await booksLogic.getAllBooks();
-    response.json(books);
+    try {
+        const books = await booksLogic.getAllBooks();
+        response.json(books);
+    } catch (err: any) {
+        next(err); // Catch-all Middleware
+    }
 });
 
 // GET  http://localhost:3001/api/books/:id
 router.get("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
-    const id = +request.params.id;
-    const book = await booksLogic.getOneBook(id);
-    response.json(book);
+    try {
+        const id = +request.params.id;
+        const book = await booksLogic.getOneBook(id);
+        response.json(book);
+    } catch (err: any) {
+        next(err); // Catch-all Middleware
+    }
 });
 
 // POST  http://localhost:3001/api/books
 router.post("/books", async (request: Request, response: Response, next: NextFunction) => {
-    const book = new BookModel(request.body);
-    const addedBook = await booksLogic.addBook(book);
-    response.status(201).json(addedBook);
+    try {
+        const book = new BookModel(request.body);
+        const addedBook = await booksLogic.addBook(book);
+        response.status(201).json(addedBook);
+    } catch (err: any) {
+        next(err); // Catch-all Middleware
+    }
 });
 
 // PUT  http://localhost:3001/api/books/:id
 router.put("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
-    const id = +request.params.id;
-    request.body.id = id;
-    const book = new BookModel(request.body);
-    const updatedBook = await booksLogic.updateBook(book);
-    response.json(updatedBook);
+    try {
+        const id = +request.params.id;
+        request.body.id = id;
+        const book = new BookModel(request.body);
+        const updatedBook = await booksLogic.updateBook(book);
+        response.json(updatedBook);
+    } catch (err: any) {
+        next(err); // Catch-all Middleware
+    }
 });
 
 // DELETE  http://localhost:3001/api/books/:id
 router.delete("/books/:id", deleteMessage, async (request: Request, response: Response, next: NextFunction) => {
-    const id = +request.params.id;
-    await booksLogic.deleteBook(id);
-    response.sendStatus(204);
+    try {
+        const id = +request.params.id;
+        await booksLogic.deleteBook(id);
+        response.sendStatus(204);
+    } catch (err: any) {
+        next(err); // Catch-all Middleware
+    }
 });
 
 export default router;
