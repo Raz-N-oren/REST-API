@@ -18,7 +18,7 @@ router.get("/books", async (request: Request, response: Response, next: NextFunc
 });
 
 // GET  http://localhost:3001/api/books/:id
-router.get("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+router.get("/books/:id([0-9]+)", async (request: Request, response: Response, next: NextFunction) => {
     try {
         const id = +request.params.id;
         const book = await booksLogic.getOneBook(id);
@@ -40,7 +40,7 @@ router.post("/books", async (request: Request, response: Response, next: NextFun
 });
 
 // PUT  http://localhost:3001/api/books/:id
-router.put("/books/:id", async (request: Request, response: Response, next: NextFunction) => {
+router.put("/books/:id([0-9]+)", async (request: Request, response: Response, next: NextFunction) => {
     try {
         const id = +request.params.id;
         request.body.id = id;
@@ -53,7 +53,7 @@ router.put("/books/:id", async (request: Request, response: Response, next: Next
 });
 
 // DELETE  http://localhost:3001/api/books/:id
-router.delete("/books/:id", deleteMessage, async (request: Request, response: Response, next: NextFunction) => {
+router.delete("/books/:id([0-9]+)", deleteMessage, async (request: Request, response: Response, next: NextFunction) => {
     try {
         const id = +request.params.id;
         await booksLogic.deleteBook(id);

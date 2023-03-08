@@ -1,6 +1,6 @@
 import dal from "../2-utils/dal";
 import BookModel from "../4- models/book-model";
-import { ResourceNotFoundErrorModel } from "../4- models/error-models";
+import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4- models/error-models";
 
 // Get all books
 async function getAllBooks(): Promise<BookModel[]> {
@@ -31,6 +31,13 @@ async function getOneBook(id: number): Promise<BookModel> {
 
 // Add new book
 async function addBook(book: BookModel): Promise<BookModel> {
+
+    // Validation
+    const errors = book.validate();
+    if (errors) {
+        throw new ValidationErrorModel(errors);
+    }
+
     // Get all books from JSON file:
     const books = await dal.getAllBooks();
 
@@ -47,6 +54,13 @@ async function addBook(book: BookModel): Promise<BookModel> {
 
 // Update existing book:
 async function updateBook(book: BookModel): Promise<BookModel> {
+
+    // Validation
+    const errors = book.validate();
+    if (errors) {
+        throw new ValidationErrorModel(errors);
+    }
+
     // Get all books from JSON file:
     const books = await dal.getAllBooks();
 

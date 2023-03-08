@@ -13,3 +13,9 @@ export class ResourceNotFoundErrorModel extends ErrorModel {
         super(`Id ${id} not exist`, 404);
     }
 }
+
+export class ValidationErrorModel extends ErrorModel {
+    public constructor(message: string) {
+        super(message, 400);
+    }
+}
