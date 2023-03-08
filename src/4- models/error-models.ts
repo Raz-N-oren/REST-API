@@ -1,5 +1,9 @@
-
 export class ErrorModel {
-    public constructor(public msg: string, public status: number) { }
+    public constructor(public message: string, public status: number) { }
 }
 
+export class RouteNotFoundErrorModel extends ErrorModel {
+    public constructor(route: string) {
+        super(`Route ${route} not exist`, 404);
+    }
+}

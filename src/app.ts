@@ -1,6 +1,7 @@
 import express from 'express';
 import catchAll from './3-middleware/catch-all';
 import logRequest from './3-middleware/log-request';
+import routeNotFound from './3-middleware/route-not-found';
 import shabbatForbidden from './3-middleware/shabbat-forbidden';
 import booksController from './6-controllers/books-controller';
 
@@ -18,10 +19,14 @@ server.use(shabbatForbidden);
 // Tell the server to listen to any router written in our controller:
 server.use("/api", booksController);
 
+// Route not found middleware
+server.use("*", routeNotFound);
+
 // Catch all middleware:
 server.use(catchAll);
+
 
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-// 02:00:00 MiddleWare && Error handling
+// 02:17:00 MiddleWare && Error handling

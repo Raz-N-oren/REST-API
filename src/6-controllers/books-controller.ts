@@ -11,8 +11,9 @@ router.get("/books", async (request: Request, response: Response, next: NextFunc
     try {
         const books = await booksLogic.getAllBooks();
         response.json(books);
-    } catch (err: any) {
-        next(err); // Catch-all Middleware
+    }
+    catch (err: any) {
+        next(err); // Catch-all middleware
     }
 });
 
