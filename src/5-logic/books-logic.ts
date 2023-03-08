@@ -1,5 +1,6 @@
 import dal from "../2-utils/dal";
 import BookModel from "../4- models/book-model";
+import { ResourceNotFoundErrorModel } from "../4- models/error-models";
 
 // Get all books
 async function getAllBooks(): Promise<BookModel[]> {
@@ -18,6 +19,11 @@ async function getOneBook(id: number): Promise<BookModel> {
 
     //Find desired book:
     const book = books.find(b => b.id === id);
+
+    // If not found:
+    if (!book) {
+        throw new ResourceNotFoundErrorModel(id);
+    }
 
     // Return found book:
     return book;
@@ -45,7 +51,12 @@ async function updateBook(book: BookModel): Promise<BookModel> {
     const books = await dal.getAllBooks();
 
     // Find desired book:
-    const index = books.findIndex(b => b.id === book.id);
+    const index = books.findIndex(b => b.id === book.id); // -1 if not found
+
+    // If not found:
+    if (index === -1) {
+        throw new ResourceNotFoundErrorModel(book.id);
+    }
 
     // Update found book:
     books[index] = book;
@@ -66,8 +77,13 @@ async function deleteBook(id: number): Promise<void> {
     //Find desired book:
     const index = books.findIndex(b => b.id === id);
 
+    // If not found:
+    if (index === -1) {
+        throw new ResourceNotFoundErrorModel(id);
+    }
+
     //Delete desired book from array:
-    books.splice(index,1);
+    books.splice(index, 1);
 
     // Save back all books to JSON file:
     await dal.saveAllBooks(books);
