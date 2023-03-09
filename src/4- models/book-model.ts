@@ -20,12 +20,9 @@ class BookModel {
 
     // Validate current object (return undefined if no error, or message if there is an error):
     public validate(): string | undefined {
-        const result = BookModel.validationSchema.validate(this);
-        return result.error?.message;
+        const result = BookModel.validationSchema.validate(this, { abortEarly: false });
+        return result.error?.message; // undefined if there are no errors
     }
-
-
-
 }
 
 export default BookModel;

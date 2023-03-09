@@ -25,8 +25,7 @@ server.use("*", routeNotFound);
 // Catch all middleware:
 server.use(catchAll);
 
-
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-// 02:17:00 MiddleWare && Error handling
+// 00:32:00 Auth

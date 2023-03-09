@@ -10,7 +10,9 @@ function catchAll(err: any, request: Request, response: Response, next: NextFunc
     logger(err.message);
 
     // Send back the error to the front:
-    response.status(err.status).send(err.message);
+    // response.status(err.status ? err.status : 500).send(err.message);
+    // response.status(!err.status && 500).send(err.message);
+    response.status(err.status || 500).send(err.message);
 }
 
 export default catchAll;
