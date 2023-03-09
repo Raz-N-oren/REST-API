@@ -4,6 +4,7 @@ import logRequest from './3-middleware/log-request';
 import routeNotFound from './3-middleware/route-not-found';
 import shabbatForbidden from './3-middleware/shabbat-forbidden';
 import booksController from './6-controllers/books-controller';
+import authController from './6-controllers/auth-controller';
 
 //Create express server:
 const server = express();
@@ -17,6 +18,7 @@ server.use(shabbatForbidden);
 
 // Tell the server to listen to any router written in our controller:
 server.use("/api", booksController);
+server.use("/api", authController)
 
 // Route not found middleware
 server.use("*", routeNotFound);

@@ -22,5 +22,13 @@
         "username": "May",
         "password": "ABCD",
         "role": "User"
+    },
+    {
+        "id": 4,
+        "firstName": "Tamar",
+        "lastName": "Oren",
+        "username": "Tamar",
+        "password": "1234",
+        "role": 1
     }
 ]
