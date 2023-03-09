@@ -15,7 +15,6 @@ server.use(express.json());
 server.use(logRequest);
 server.use(shabbatForbidden);
 
-
 // Tell the server to listen to any router written in our controller:
 server.use("/api", booksController);
 
@@ -28,4 +27,4 @@ server.use(catchAll);
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-// 00:32:00 Auth
+// 01:45:00 Auth
