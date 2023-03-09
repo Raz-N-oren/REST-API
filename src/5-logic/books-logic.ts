@@ -1,6 +1,6 @@
 import dal from "../2-utils/dal";
-import BookModel from "../4- models/book-model";
-import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4- models/error-models";
+import BookModel from "../4-models/book-model";
+import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4-models/error-models";
 
 // Get all books
 async function getAllBooks(): Promise<BookModel[]> {

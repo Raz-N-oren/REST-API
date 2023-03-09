@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import deleteMessage from "../3-middleware/delete-message";
-import BookModel from "../4- models/book-model";
+import BookModel from "../4-models/book-model";
 import booksLogic from "../5-logic/books-logic";
 
 // Only the routing part of express without the entire server.

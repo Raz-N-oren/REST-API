@@ -1,6 +1,6 @@
 import fsPromises from "fs/promises";
-import BookModel from "../4- models/book-model";
-import UserModel from "../4- models/user-model";
+import BookModel from "../4-models/book-model";
+import UserModel from "../4-models/user-model";
 
 const booksFilePath = "./src/1-assets/json/books.json";
 const usersFilePath = "./src/1-assets/json/users.json";
