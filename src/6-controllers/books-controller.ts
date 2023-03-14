@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import deleteMessage from "../3-middleware/delete-message";
+import verifyLoggedIn from "../3-middleware/verify-logged-in";
 import BookModel from "../4-models/book-model";
 import booksLogic from "../5-logic/books-logic";
 
@@ -29,7 +30,7 @@ router.get("/books/:id([0-9]+)", async (request: Request, response: Response, ne
 });
 
 // POST  http://localhost:3001/api/books
-router.post("/books", async (request: Request, response: Response, next: NextFunction) => {
+router.post("/books", verifyLoggedIn, async (request: Request, response: Response, next: NextFunction) => {
     try {
         const book = new BookModel(request.body);
         const addedBook = await booksLogic.addBook(book);
@@ -40,7 +41,7 @@ router.post("/books", async (request: Request, response: Response, next: NextFun
 });
 
 // PUT  http://localhost:3001/api/books/:id
-router.put("/books/:id([0-9]+)", async (request: Request, response: Response, next: NextFunction) => {
+router.put("/books/:id([0-9]+)", verifyLoggedIn, async (request: Request, response: Response, next: NextFunction) => {
     try {
         const id = +request.params.id;
         request.body.id = id;
@@ -53,7 +54,7 @@ router.put("/books/:id([0-9]+)", async (request: Request, response: Response, ne
 });
 
 // DELETE  http://localhost:3001/api/books/:id
-router.delete("/books/:id([0-9]+)", deleteMessage, async (request: Request, response: Response, next: NextFunction) => {
+router.delete("/books/:id([0-9]+)", [verifyLoggedIn, deleteMessage], async (request: Request, response: Response, next: NextFunction) => {
     try {
         const id = +request.params.id;
         await booksLogic.deleteBook(id);
