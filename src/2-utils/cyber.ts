@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import UserModel from "../4-models/user-model";
 import jwt from "jsonwebtoken";
+import RoleModel from '../4-models/role-model';
 
 // Create secret key ==> a string for our REST API:
 const secretKey = "LFCSupporter";
@@ -21,11 +22,12 @@ function getNewToken(user: UserModel): string {
 }
 
 function verifyToken(request: Request): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => { // To Promisify
 
         try {
-            // Token format:
-            // authorization header --> "Bearer token"
+            // Token format inside a header named authorization:
+            // "Bearer the-token"
+            //  01234567
 
             // Extract header:
             const header = request.header("authorization");
@@ -62,6 +64,32 @@ function verifyToken(request: Request): Promise<boolean> {
             reject(err);
         }
     });
+}
+
+async function verifyAdmin(request: Request): Promise<boolean> {
+
+    // First check if user logged in:
+    const isLoggedIn = await verifyToken(request);
+
+    // If not logged in:
+    if (!isLoggedIn) {
+        return false;
+    }
+
+    // Extract header:
+    const header = request.header("authorization");
+
+    // Extract token from header:
+    const token = header.substring(7);
+
+    // Extract container from token:
+    const container: any = jwt.decode(token);
+
+    // Extract user:
+    const user = container.user;
+
+    // Return true if user is admin, otherwise return false:
+    return user.role === RoleModel.Admin
 }
 
 export default {

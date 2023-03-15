@@ -29,4 +29,4 @@ server.use(catchAll);
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-// 00:00:00 Auth
+// 00:40:00 Auth, upload images
