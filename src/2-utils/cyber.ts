@@ -94,5 +94,6 @@ async function verifyAdmin(request: Request): Promise<boolean> {
 
 export default {
     getNewToken,
-    verifyToken
+    verifyToken,
+    verifyAdmin
 };
