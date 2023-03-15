@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import deleteMessage from "../3-middleware/delete-message";
+import verifyAdmin from "../3-middleware/verify-admin";
 import verifyLoggedIn from "../3-middleware/verify-logged-in";
 import BookModel from "../4-models/book-model";
 import booksLogic from "../5-logic/books-logic";
@@ -54,7 +55,7 @@ router.put("/books/:id([0-9]+)", verifyLoggedIn, async (request: Request, respon
 });
 
 // DELETE  http://localhost:3001/api/books/:id
-router.delete("/books/:id([0-9]+)", [verifyLoggedIn, deleteMessage], async (request: Request, response: Response, next: NextFunction) => {
+router.delete("/books/:id([0-9]+)", [verifyAdmin, deleteMessage], async (request: Request, response: Response, next: NextFunction) => {
     try {
         const id = +request.params.id;
         await booksLogic.deleteBook(id);

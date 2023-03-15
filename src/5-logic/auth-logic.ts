@@ -1,3 +1,4 @@
+import { ValidationErrorModel } from './../4-models/error-models';
 import { UnauthorizedErrorModel } from '../4-models/error-models';
 import cyber from "../2-utils/cyber";
 import dal from "../2-utils/dal";
@@ -7,12 +8,19 @@ import UserModel from "../4-models/user-model";
 
 async function register(user: UserModel): Promise<string> {
 
-    // Validation...
+    // Validation:
+    const error = user.validate();
+    if (error) {
+        throw new ValidationErrorModel(error);
+    }
 
     // Get all users (only now, when working with DB we won't get all users):
     const users = await dal.getAllUsers();
 
     // Is username taken:
+    if (users.some(u => u.username === user.username)) {
+        throw new ValidationErrorModel("Username already taken.")
+    };
 
     // Find next id:
     user.id = users[users.length - 1].id + 1;
@@ -35,7 +43,11 @@ async function register(user: UserModel): Promise<string> {
 
 async function login(credentials: CredentialsModel) {
 
-    // Validation..
+    // Validation:
+    const error = credentials.validate();
+    if (error) {
+        throw new ValidationErrorModel(error);
+    }
 
     // Get all users (only now, when working with DB we won't get all users):
     const users = await dal.getAllUsers();
