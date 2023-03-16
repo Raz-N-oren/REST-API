@@ -33,4 +33,3 @@ server.use(catchAll);
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-// 00:05:00 Node.js - Serve Image, Databases, MySQL

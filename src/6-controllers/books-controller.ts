@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import path from "path";
 import deleteMessage from "../3-middleware/delete-message";
 import verifyAdmin from "../3-middleware/verify-admin";
 import verifyLoggedIn from "../3-middleware/verify-logged-in";
@@ -67,6 +68,19 @@ router.delete("/books/:id([0-9]+)", [verifyAdmin, deleteMessage], async (request
         const id = +request.params.id;
         await booksLogic.deleteBook(id);
         response.sendStatus(204);
+    } catch (err: any) {
+        next(err); // Catch-all Middleware
+    }
+});
+
+// GET  http://localhost:3001/api/books/images/:imageName
+router.get("/books/images/:imageName", async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        const imageName = request.params.imageName;
+
+        // __dirname contains the full path to our current folder - controllers folder.
+        const absolutePath = path.join(__dirname,"..","1-assets","images",imageName);
+        response.sendFile(absolutePath);
     } catch (err: any) {
         next(err); // Catch-all Middleware
     }
