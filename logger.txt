@@ -1,2 +1,4 @@
-3/9/2023, 8:04:03 PM 	 Incorrect username or password 
+3/15/2023, 7:13:42 PM 	 "firstName" length must be at least 2 characters long 
+ ----------------------------------------------------------------
+3/15/2023, 7:16:09 PM 	 "lastName" length must be at least 2 characters long 
  ----------------------------------------------------------------

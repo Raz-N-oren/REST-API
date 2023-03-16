@@ -1,4 +1,5 @@
 import express from 'express';
+import expressFileUpload from 'express-fileupload';
 import catchAll from './3-middleware/catch-all';
 import logRequest from './3-middleware/log-request';
 import routeNotFound from './3-middleware/route-not-found';
@@ -11,6 +12,9 @@ const server = express();
 
 // Tell express to take the JSON resides in request's body into request.body object:
 server.use(express.json());
+
+// Integrate express-fileupload middleware to handle uploaded files:
+server.use(expressFileUpload());
 
 // Binding our middleware:
 server.use(logRequest);
@@ -29,4 +33,4 @@ server.use(catchAll);
 // Run the server:
 server.listen(3001, () => console.log("Listening on http://localhost:3001"));
 
-// 01:05:00 Auth, upload images.
+// 01:42:30 Auth, upload images.
