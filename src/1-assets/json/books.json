@@ -1,23 +1,23 @@
 [
-  {
-    "id": 1,
-    "name": "JavaScript is cool",
-    "price": 110
-  },
-  {
-    "id": 2,
-    "name": "TypeScript is better",
-    "price": 150
-  },
-  {
-    "id": 3,
-    "name": "PHP is gone",
-    "price": 20
-  },
-  {
-    "id": 4,
-    "name": "React is fun",
-    "price": "120",
-    "imageName": "react.jpeg"
-  }
+    {
+        "id": 1,
+        "name": "JavaScript is cool",
+        "price": "110"
+    },
+    {
+        "id": 2,
+        "name": "TypeScript is better",
+        "price": 150
+    },
+    {
+        "id": 3,
+        "name": "PHP is gone",
+        "price": 20
+    },
+    {
+        "id": 4,
+        "name": "react if fun",
+        "price": "110",
+        "imageName": "1ee0917e-16da-4e6f-aa31-c992f14e4bf2.jpeg"
+    }
 ]

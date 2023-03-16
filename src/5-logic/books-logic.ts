@@ -1,6 +1,8 @@
+import fs from "fs";
 import dal from "../2-utils/dal";
 import BookModel from "../4-models/book-model";
 import { ResourceNotFoundErrorModel, ValidationErrorModel } from "../4-models/error-models";
+import { v4 as uuid } from "uuid"; // v4 function changed to uuid name
 
 // Get all books
 async function getAllBooks(): Promise<BookModel[]> {
@@ -39,8 +41,9 @@ async function addBook(book: BookModel): Promise<BookModel> {
     }
 
     // Save image to disk if exists:
-    if(book.image){
-        book.imageName = book.image.name;
+    if (book.image) {
+        const extension = book.image.name.substring(book.image.name.lastIndexOf("."));
+        book.imageName = uuid() + extension;
         await book.image.mv("./src/1-assets/images/" + book.imageName);
         delete book.image;
     }
@@ -79,6 +82,22 @@ async function updateBook(book: BookModel): Promise<BookModel> {
         throw new ResourceNotFoundErrorModel(book.id);
     }
 
+    // Save image to disk if exists:
+    if (book.image) {
+
+        // If we have a previous image:
+        if (fs.existsSync("./src/1-assets/images/" + books[index].imageName)) {
+
+            // Delete it:
+            fs.unlinkSync("./src/1-assets/images/" + books[index].imageName)
+        }
+
+        const extension = book.image.name.substring(book.image.name.lastIndexOf("."));
+        book.imageName = uuid() + extension;
+        await book.image.mv("./src/1-assets/images/" + book.imageName);
+        delete book.image;
+    }
+
     // Update found book:
     books[index] = book;
 
@@ -101,6 +120,13 @@ async function deleteBook(id: number): Promise<void> {
     // If not found:
     if (index === -1) {
         throw new ResourceNotFoundErrorModel(id);
+    }
+
+    // If we have image:
+    if (fs.existsSync("./src/1-assets/images/" + books[index].imageName)) {
+
+        // Delete it:
+        fs.unlinkSync("./src/1-assets/images/" + books[index].imageName)
     }
 
     //Delete desired book from array:

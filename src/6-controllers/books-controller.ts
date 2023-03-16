@@ -35,7 +35,7 @@ router.post("/books", verifyLoggedIn, async (request: Request, response: Respons
     try {
         // Take uploaded file, set it to the body:
         request.body.image = request.files?.image;
-        
+
         const book = new BookModel(request.body);
         const addedBook = await booksLogic.addBook(book);
         response.status(201).json(addedBook);
@@ -49,6 +49,10 @@ router.put("/books/:id([0-9]+)", verifyLoggedIn, async (request: Request, respon
     try {
         const id = +request.params.id;
         request.body.id = id;
+
+        // Take uploaded file, set it to the body:
+        request.body.image = request.files?.image;
+
         const book = new BookModel(request.body);
         const updatedBook = await booksLogic.updateBook(book);
         response.json(updatedBook);
