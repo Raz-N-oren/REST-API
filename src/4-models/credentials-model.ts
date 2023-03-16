@@ -12,7 +12,7 @@ class CredentialsModel {
 
     public static validationScheme = Joi.object({
 
-        userName: Joi.string().required().min(4).max(20),
+        username: Joi.string().required().min(3).max(20),
         password: Joi.string().required().min(4).max(20),
 
     });

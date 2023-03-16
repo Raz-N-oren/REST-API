@@ -33,6 +33,9 @@ router.get("/books/:id([0-9]+)", async (request: Request, response: Response, ne
 // POST  http://localhost:3001/api/books
 router.post("/books", verifyLoggedIn, async (request: Request, response: Response, next: NextFunction) => {
     try {
+        // Take uploaded file, set it to the body:
+        request.body.image = request.files?.image;
+        
         const book = new BookModel(request.body);
         const addedBook = await booksLogic.addBook(book);
         response.status(201).json(addedBook);

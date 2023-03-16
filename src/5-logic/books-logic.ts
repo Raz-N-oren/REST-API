@@ -38,6 +38,13 @@ async function addBook(book: BookModel): Promise<BookModel> {
         throw new ValidationErrorModel(errors);
     }
 
+    // Save image to disk if exists:
+    if(book.image){
+        book.imageName = book.image.name;
+        await book.image.mv("./src/1-assets/images/" + book.imageName);
+        delete book.image;
+    }
+
     // Get all books from JSON file:
     const books = await dal.getAllBooks();
 

@@ -23,7 +23,7 @@ class BookModel {
         name: Joi.string().required().min(2).max(100),
         price: Joi.number().required().positive().min(0).max(1000),
         image: Joi.object().optional(),
-        imageName: Joi.string()
+        imageName: Joi.string().optional()
     });
 
     // Validate current object (return undefined if no error, or message if there is an error):
